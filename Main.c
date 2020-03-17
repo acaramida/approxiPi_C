@@ -10,9 +10,9 @@ void* numbers_in(void *arg) {
 
 	unsigned int seed = time(NULL);
 	double p_in = 0;
-	double *threads = (double*)arg;
-	printf(" t2: %lf \n", *threads);
-	for( int i = 0; i < points/ 4; i++ )
+	int *threads = (int*)arg;
+
+	for( int i = 0; i < points/ *threads; i++ )
 	{
 			double x = ((double)rand_r(&seed) / RAND_MAX);
       double y = ((double)rand_r(&seed) / RAND_MAX);
@@ -31,10 +31,10 @@ int main( int argc, const char* argv[] )
 	int threads = atof(argv[2]);
 	points = atof(argv[1]);
 	pthread_t workers[threads];
-printf(" t1: %d \n", threads);
+
 	for( int i = 0; i < threads; i++ )
 		{
-			pthread_create(&workers[i], NULL, numbers_in, (void*) &threads);
+			pthread_create(&workers[i], NULL, numbers_in, (void*)&threads);
 		}
 
 	/* Waiting for threads to complete */
