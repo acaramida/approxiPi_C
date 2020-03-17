@@ -23,7 +23,6 @@ void* numbers_in(void *arg) {
 	}
 
 	sum+=p_in;
-	pthread_exit(0);
 }
 
 int main( int argc, const char* argv[] )
@@ -44,8 +43,8 @@ int main( int argc, const char* argv[] )
 	}
 
 	printf(" points: %lf \n", points);
-  printf(" points in: %lf \n", sum);
-  printf(" PI estimation: %lf \n", sum/points * 4.0);
+  	printf(" points in: %lf \n", sum);
+  	printf(" PI estimation: %lf \n", sum/points * 4.0);
 
 	return 0;
 }
