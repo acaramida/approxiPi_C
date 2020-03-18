@@ -1,50 +1,49 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <unistd.h>
 #include <pthread.h>
 
-double points = 0;
-double sum = 0;
+void* numbers_in(void* points) {
 
-void* numbers_in(void *arg) {
+		long p_in = 0;
+		long p = (long)points;
+		unsigned int seed = time(NULL);
 
-	unsigned int seed = time(NULL);
-	double p_in = 0;
-	int *threads = (int*)arg;
-
-	for( int i = 0; i < points/ *threads; i++ )
-	{
+		for( int i = 0; i < p; i++ )
+		{
 			double x = ((double)rand_r(&seed) / RAND_MAX);
-      double y = ((double)rand_r(&seed) / RAND_MAX);
+	    double y = ((double)rand_r(&seed) / RAND_MAX);
 
 			if(x * x + y * y <= 1) {
 				p_in++;
 			}
-	}
+		}
 
-	sum+=p_in;
+		return (void*) p_in;
 }
 
-int main( int argc, const char* argv[] )
+void main( int argc, char* argv[] )
 {
-	int threads = atof(argv[2]);
-	points = atof(argv[1]);
+	int threads = atoi(argv[2]);
+  double points = atof(argv[1]);
+	long points_per_thread = points/threads;
+	long sum = 0;
+
 	pthread_t workers[threads];
 
 	for( int i = 0; i < threads; i++ )
-		{
-			pthread_create(&workers[i], NULL, numbers_in, (void*)&threads);
-		}
-
-	/* Waiting for threads to complete */
-	for (int i = 0; i < threads; i++)
 	{
-		pthread_join(workers[i], NULL);
+		pthread_create(&workers[i], NULL, numbers_in, (void *)points_per_thread);
 	}
 
-	printf(" points: %lf \n", points);
-  	printf(" points in: %lf \n", sum);
-  	printf(" PI estimation: %lf \n", sum/points * 4.0);
+	for (int i = 0; i < threads; i++)
+	{
+		void* ret_from_thread;
+		pthread_join(workers[i], &ret_from_thread);
+		sum += (long)ret_from_thread;
+	}
 
-	return 0;
+	printf("points: %.10e \n", points);
+  printf("points in: %.10e \n", (double)sum);
+  printf("PI estimation: %lf \n", (double)sum/points * 4.0);
+
 }
