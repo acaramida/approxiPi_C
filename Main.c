@@ -25,7 +25,7 @@ void* numbers_in(void* points) {
 void main( int argc, char* argv[] )
 {
 	int threads = atoi(argv[2]);
-  double points = atof(argv[1]);
+  	double points = atof(argv[1]);
 	long points_per_thread = points/threads;
 	long sum = 0;
 
@@ -44,7 +44,7 @@ void main( int argc, char* argv[] )
 	}
 
 	printf("points: %.10e \n", points);
-  printf("points in: %.10e \n", (double)sum);
-  printf("PI estimation: %lf \n", (double)sum/points * 4.0);
+  	printf("points in: %.10e \n", (double)sum);
+  	printf("PI estimation: %lf \n", (double)sum/points * 4.0);
 
 }
