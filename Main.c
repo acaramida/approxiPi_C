@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <unistd.h>
+#include <sys/time.h>
 
 void* numbers_in(void* points) {
 
@@ -24,6 +25,9 @@ void* numbers_in(void* points) {
 
 void main( int argc, char* argv[] )
 {
+	struct timespec start, end;
+	clock_gettime(CLOCK_MONOTONIC, &start);
+
 	int threads = atoi(argv[2]);
   	double points = atof(argv[1]);
 	long points_per_thread = points/threads;
@@ -43,8 +47,14 @@ void main( int argc, char* argv[] )
 		sum += (long)ret_from_thread;
 	}
 
-	printf("points: %.10e \n", points);
-  	printf("points in: %.10e \n", (double)sum);
+	clock_gettime(CLOCK_MONOTONIC, &end);
+	double time_taken;
+    time_taken = (end.tv_sec - start.tv_sec) * 1e9;
+    time_taken = (time_taken + (end.tv_nsec - start.tv_nsec)) * 1e-9;
+
+	printf("Total number of points: %.1e \n", points);
+  	printf("Points within circle: %.1e \n", (double)sum);
   	printf("PI estimation: %lf \n", (double)sum/points * 4.0);
+	printf("Execution time (s): %.3lf \n", time_taken);
 
 }
