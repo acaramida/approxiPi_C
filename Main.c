@@ -9,7 +9,7 @@ void *numbers_in(void *points)
 
 	long p_in = 0;
 	long p = (long)points;
-	unsigned int seed = getpid() ^ pthread_self();
+	unsigned int seed = time(NULL) ^ getpid() ^ pthread_self();
 
 	for (int i = 0; i < p; i++)
 	{
