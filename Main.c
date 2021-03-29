@@ -81,9 +81,7 @@ int main(int argc, char *argv[])
 
 	if (flags == 1)
 	{
-		printf("%.1e \n", points);
-		printf("%d \n", threads);
-		printf("%.3lf \n", time_taken);
+		printf("%.lf\t%d\t%.3lf\n", points, threads, time_taken);
 	}
 	else
 	{
