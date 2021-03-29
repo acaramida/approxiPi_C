@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
 	{
 		printf("Total number of points: %.1e \n", points);
 		printf("Points within circle: %.1e \n", (double)sum);
-		printf("PI estimation: %lf \n", (double)sum / points * 4.0);
+		printf("PI estimation: %0.8lf \n", (double)sum / points * 4.0);
 		printf("Execution time (s): %.3lf \n", time_taken);
 	}
 
