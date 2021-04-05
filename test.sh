@@ -7,5 +7,5 @@ for IT in $ITEREATIONS; do
             ./Main -p $IT -t $TH -b
         done
     done
-done | tee output_file.csv
+done | tee output_file_c.csv
 
