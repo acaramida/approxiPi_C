@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 
 	flags = 0;
 	threads = 1;
-	points = 0;
+	points = 1000;
 
 	int option;
 	while ((option = getopt(argc, argv, "p:t:b")) != -1)
