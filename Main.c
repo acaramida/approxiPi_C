@@ -11,7 +11,7 @@ void *numbers_in(void *points)
 	long p = (long)points;
 	unsigned int seed = time(NULL) ^ getpid() ^ pthread_self();
 
-	for (int i = 0; i < p; i++)
+	for (long i = 0; i < p; i++)
 	{
 		double x = ((double)rand_r(&seed) / RAND_MAX);
 		double y = ((double)rand_r(&seed) / RAND_MAX);
